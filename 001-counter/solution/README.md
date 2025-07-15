@@ -1,3 +1,3 @@
 ## Tests
 
-![Passing all tests](../assets/tests.png)
+![Tests passing](https://raw.githubusercontent.com/DuffmanCC/react-interviews/main/001-counter/assets/tests.png)
