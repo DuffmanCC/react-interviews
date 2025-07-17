@@ -10,7 +10,6 @@
     "test": "vitest"
   },
   "stackblitz": {
-    "startCommand": "pnpm test && pnpm dev",
     "compileTrigger": "save"
   },
   "dependencies": {
