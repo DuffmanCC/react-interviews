@@ -15,4 +15,10 @@ afterEach((test) => {
 
 afterAll(() => {
   console.log("Results:", results);
+  try {
+    localStorage.setItem("testResults", JSON.stringify(results));
+    console.log("Test results saved to localStorage.");
+  } catch (e) {
+    console.error("Failed to save test results to localStorage:", e);
+  }
 });
