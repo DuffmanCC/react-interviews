@@ -2,38 +2,33 @@ import "@testing-library/jest-dom";
 
 import { afterAll, afterEach } from "vitest";
 
-const results: any[] = [];
+let ws: WebSocket | null = null;
 
-afterEach((test) => {
-  results.push({
-    name: test.task.name,
-    status: test.task.result?.state ?? "unknown", // 'passed' | 'failed' | etc.
-    // errors: test.task.result?.errors?.map((e) => e.message),
-    timestamp: Date.now(),
-  });
-});
-
-function sendToParent(data) {
-  let target: Window = window;
-  for (let i = 0; i < 5; i++) {
-    try {
-      target.postMessage(
-        {
-          type: "vitest:results",
-          payload: data,
-          stackblitz: true,
-        },
-        "*"
-      );
-    } catch (e) {}
-
-    if (target === window.top) break;
-    target = target.parent;
-  }
+function connectWS() {
+  ws = new WebSocket("ws://5098bf30a793.ngrok-free.app/api/ws");
+  ws.onopen = () => console.log("WS conectado");
+  ws.onclose = () => console.log("WS desconectado");
+  ws.onerror = (e) => console.error("WS error", e);
 }
 
-afterAll(() => {
-  console.log("Results:", results);
+connectWS();
 
-  sendToParent(results);
+afterEach((test) => {
+  if (ws?.readyState === WebSocket.OPEN) {
+    ws.send(
+      JSON.stringify({
+        type: "test-result",
+        name: test.task.name,
+        status: test.task.result?.state ?? "unknown",
+        timestamp: Date.now(),
+      })
+    );
+  }
+});
+
+afterAll(() => {
+  if (ws?.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ type: "tests-finished" }));
+    ws.close();
+  }
 });
