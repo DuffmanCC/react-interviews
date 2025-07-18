@@ -14,6 +14,8 @@ function connectWS() {
 connectWS();
 
 afterEach((test) => {
+  console.log("test", test.task.name, test.task.result?.state);
+  console.log("Intentando conectar...");
   if (ws && ws.readyState === ws.OPEN) {
     ws.send(
       JSON.stringify({
