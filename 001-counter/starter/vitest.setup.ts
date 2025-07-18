@@ -1,20 +1,20 @@
 import "@testing-library/jest-dom";
-
 import { afterAll, afterEach } from "vitest";
+import WebSocket from "ws";
 
 let ws: WebSocket | null = null;
 
 function connectWS() {
   ws = new WebSocket("wss://5098bf30a793.ngrok-free.app/api/ws");
-  ws.onopen = () => console.log("WS conectado");
-  ws.onclose = () => console.log("WS desconectado");
-  ws.onerror = (e) => console.error("WS error", e);
+  ws.on("open", () => console.log("WS conectado"));
+  ws.on("close", () => console.log("WS desconectado"));
+  ws.on("error", (e) => console.error("WS error", e));
 }
 
 connectWS();
 
 afterEach((test) => {
-  if (ws?.readyState === WebSocket.OPEN) {
+  if (ws && ws.readyState === ws.OPEN) {
     ws.send(
       JSON.stringify({
         type: "test-result",
@@ -27,7 +27,7 @@ afterEach((test) => {
 });
 
 afterAll(() => {
-  if (ws?.readyState === WebSocket.OPEN) {
+  if (ws && ws.readyState === ws.OPEN) {
     ws.send(JSON.stringify({ type: "tests-finished" }));
     ws.close();
   }
