@@ -16,11 +16,14 @@ afterEach((test) => {
 afterAll(() => {
   console.log("Results:", results);
 
-  window.parent.postMessage(
+  const targetWindow = window.parent.parent || window.parent || window;
+
+  targetWindow.postMessage(
     {
       type: "vitest:results",
+      source: "stackblitz-iframe", // Identificador único
       payload: results,
     },
-    "*"
+    "*" // En producción, reemplazar con el dominio específico
   );
 });

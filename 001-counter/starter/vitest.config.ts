@@ -7,14 +7,6 @@ export default defineConfig({
     environment: "jsdom", // necesario para React
     globals: true, // para no importar describe, it, expect
     setupFiles: "./vitest.setup.ts", // para cargar jest-dom manualmente
-    reporters: [
-      "default",
-      {
-        onFinished(suite) {
-          // leer el archivo JSON generado
-          console.log("✅ Report JSON loaded");
-        },
-      },
-    ],
+    reporters: ["default"],
   },
 });
