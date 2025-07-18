@@ -8,7 +8,7 @@ function App() {
             Count state
           </button>
 
-          <span data-testid="state-value"></span>
+          <span data-testid="state-value">0</span>
         </div>
 
         <div className="flex flex-row items-center gap-6">
@@ -16,12 +16,8 @@ function App() {
             Count ref
           </button>
 
-          <span data-testid="ref-value"></span>
+          <span data-testid="ref-value">0</span>
         </div>
-
-        <button className="bg-blue-500 px-3 py-2 rounded hover:bg-blue-700 text-white">
-          send message
-        </button>
       </div>
     </main>
   );
