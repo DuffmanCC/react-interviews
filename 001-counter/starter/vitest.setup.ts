@@ -1,20 +1,14 @@
 import "@testing-library/jest-dom";
 
-import { afterAll, afterEach, expect, vi } from "vitest";
+import { afterAll, afterEach } from "vitest";
 
 const results: any[] = [];
 
-vi.mock("./reportResults", () => ({
-  pushResult: (data: any) => results.push(data),
-}));
-
-afterEach(() => {
-  const state = expect.getState();
-  const currentTestName = state.currentTestName;
-
+afterEach((test) => {
   results.push({
-    name: currentTestName || "(unknown)",
-    status: state.assertionCalls > 0 ? "passed" : "unknown",
+    name: test.task.name,
+    status: test.task.result?.state ?? "unknown", // 'passed' | 'failed' | etc.
+    // errors: test.task.result?.errors?.map((e) => e.message),
     timestamp: Date.now(),
   });
 });
