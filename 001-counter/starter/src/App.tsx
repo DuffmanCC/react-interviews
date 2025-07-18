@@ -18,6 +18,22 @@ function App() {
 
           <span data-testid="ref-value"></span>
         </div>
+
+        <button
+          className="bg-blue-500 px-3 py-2 rounded hover:bg-blue-700 text-white"
+          onClick={() => {
+            console.log("send message button clicked");
+
+            window.parent.postMessage(
+              {
+                data: "hola",
+              },
+              "*"
+            );
+          }}
+        >
+          send message
+        </button>
       </div>
     </main>
   );
