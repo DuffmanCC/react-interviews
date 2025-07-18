@@ -5,7 +5,7 @@ import { afterAll, afterEach } from "vitest";
 let ws: WebSocket | null = null;
 
 function connectWS() {
-  ws = new WebSocket("ws://5098bf30a793.ngrok-free.app/api/ws");
+  ws = new WebSocket("wss://5098bf30a793.ngrok-free.app/api/ws");
   ws.onopen = () => console.log("WS conectado");
   ws.onclose = () => console.log("WS desconectado");
   ws.onerror = (e) => console.error("WS error", e);
