@@ -13,17 +13,27 @@ afterEach((test) => {
   });
 });
 
+function sendToParent(data) {
+  let target: Window = window;
+  for (let i = 0; i < 5; i++) {
+    try {
+      target.postMessage(
+        {
+          type: "vitest:results",
+          payload: data,
+          stackblitz: true,
+        },
+        "*"
+      );
+    } catch (e) {}
+
+    if (target === window.top) break;
+    target = target.parent;
+  }
+}
+
 afterAll(() => {
   console.log("Results:", results);
 
-  const targetWindow = window.parent.parent || window.parent || window;
-
-  targetWindow.postMessage(
-    {
-      type: "vitest:results",
-      source: "stackblitz-iframe", // Identificador único
-      payload: results,
-    },
-    "*" // En producción, reemplazar con el dominio específico
-  );
+  sendToParent(results);
 });
