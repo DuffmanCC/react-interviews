@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
+import PostMessageReporter from "./PostMessageReporter";
 
 export default defineConfig({
   plugins: [react()],
@@ -7,6 +8,6 @@ export default defineConfig({
     environment: "jsdom", // necesario para React
     globals: true, // para no importar describe, it, expect
     setupFiles: "./vitest.setup.ts", // para cargar jest-dom manualmente
-    reporters: ["default"],
+    reporters: ["default", new PostMessageReporter()],
   },
 });
