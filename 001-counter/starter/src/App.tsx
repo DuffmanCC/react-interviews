@@ -18,6 +18,20 @@ function App() {
 
           <span data-testid="ref-value">0</span>
         </div>
+
+        <button
+          onClick={() => {
+            window.top?.postMessage(
+              {
+                source: "stackblitz-webcontainer",
+                payload: "hola",
+              },
+              "*"
+            );
+          }}
+        >
+          send
+        </button>
       </div>
     </main>
   );
