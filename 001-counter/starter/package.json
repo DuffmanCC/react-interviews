@@ -10,8 +10,7 @@
     "test": "vitest"
   },
   "stackblitz": {
-    "compileTrigger": "save",
-    "startCommand": "pnpm test"
+    "compileTrigger": "save"
   },
   "dependencies": {
     "react": "^19.0.0",
