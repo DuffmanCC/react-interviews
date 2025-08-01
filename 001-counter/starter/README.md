@@ -6,5 +6,3 @@
 - Demonstrate the difference between updating state and refs in terms of rendering behavior.
 - Ensure the counter updates visually when using `useState`.
 - Keep track of a value with `useRef` that does not cause re-renders on change.
-
-![Screenshot of the counters](https://raw.githubusercontent.com/DuffmanCC/react-interviews/main/001-counter/assets/screenshot.png)
